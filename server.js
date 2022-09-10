@@ -41,6 +41,9 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// access to all of out auth routes GET /auth/login, Get /auth/signup Post /auth/logout
+app.use("/auth", require("./controllers/auth"));
+
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);

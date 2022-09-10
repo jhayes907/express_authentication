@@ -28,18 +28,17 @@ const STRATEGY = new LocalStrategy(
   }
 );
 
-passport.deserializeUser(async (id, cb)
-=> {
-    try {
-        const user = await db.user.findByPk(id);
-    
-        if (user) {
-          cb(null, user);
-        }
-      } catch (err) {
-        console.log("---- Yo... There is an error ----");
-        console.log(err);
-      } 
+passport.deserializeUser(async (id, cb) => {
+  try {
+    const user = await db.user.findByPk(id);
+
+    if (user) {
+      cb(null, user);
+    }
+  } catch (err) {
+    console.log("---- Yo... There is an error ----");
+    console.log(err);
+  }
 });
 
 passport.use(STRATEGY);
