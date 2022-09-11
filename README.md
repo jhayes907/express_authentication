@@ -666,6 +666,7 @@ The purpose of these partials ( `views` ) is to render the `flash` alerts to the
         <div class="alert alert-success"><%= msg %></div>
    <% }) %>
 <% } %>
+
 ```
 
 `4` Include the `alert` partials inside of the `layout.ejs` file at the beginning of the body
