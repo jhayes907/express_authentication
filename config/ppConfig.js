@@ -1,5 +1,4 @@
 const passport = require("passport");
-const { Strategy } = require("passport-local");
 const LocalStrategy = require("passport-local").Strategy;
 
 // Database
@@ -27,6 +26,10 @@ const STRATEGY = new LocalStrategy(
     }
   }
 );
+
+passport.serializeUser((user, cb) => {
+  cb(null, user.id);
+});
 
 passport.deserializeUser(async (id, cb) => {
   try {

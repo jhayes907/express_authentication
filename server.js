@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
 app.use(layouts);
 
+app.use(flash());
+
 app.use(
   session({
     secret: SECRET_SESSION,
@@ -24,8 +26,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-app.use(flash());
 
 app.use(passport.initialize()); // Initialize passport
 app.use(passport.session()); // Add a session
@@ -41,8 +41,15 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// access to all of out auth routes GET /auth/login, Get /auth/signup Post /auth/logout
+// access to all of out auth routes GET /auth/login, Get /auth/signup Post routes
+
 app.use("/auth", require("./controllers/auth"));
+
+// Add this above /auth controllers
+app.get("/profile", isLoggedIn, (req, res) => {
+  const { id, name, email } = req.user.get();
+  res.render("profile", { id, name, email });
+});
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
